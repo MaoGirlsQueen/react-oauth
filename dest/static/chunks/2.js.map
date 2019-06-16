@@ -1,0 +1,1 @@
+{"version":3,"file":"static/chunks/2.js","sources":["webpack:///./components/Comp.js"],"sourcesContent":["export default ()=><span>lazy loading</span>\r\n\r\n"],"mappings":";;;;;;;;;;;;;;AAAA;AAAA;AAAA;;;;A","sourceRoot":""}
