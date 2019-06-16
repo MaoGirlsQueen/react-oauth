@@ -1,9 +1,15 @@
-
+import {useEffect} from "react"
+import axios from "axios"
 import  {connect} from "react-redux"
 import {add} from "../store/store"
 import getConfig from "next/config"
 const { publicRuntimeConfig } = getConfig()
 const Index = ({counter,user,add,rename})=>{
+
+    useEffect(()=>{
+        axios.get("/api/user/info").then(response=>console.log(response))
+    },[])
+
     return (<div>
         <span>count:{counter.count}</span>
         <span>username:{user.username}</span>

@@ -24,23 +24,6 @@ app.prepare().then(()=>{
    //配置处理oauth登录
     auth(server)
 
-    server.use(async (ctx,next)=>{
-        // console.log(ctx.cookies.get("id"))
-        // ctx.session = ctx.session || {}
-        // ctx.session.user = {
-        //     username:"KOL",
-        //     age:15
-        // }
-        // if(!ctx.session.user){
-        //     ctx.session.user = {
-        //         username:"KOL",
-        //         age:15
-        //     }
-        // }else{
-        //     console.log("session is",ctx.session)
-        // }
-        await next()
-        })
     router.get('/a/:id',async (ctx)=>{
         const id= ctx.params.id
         await handle(ctx.req,ctx.res,{
@@ -49,16 +32,17 @@ app.prepare().then(()=>{
         })
         ctx.respond = false
     })
-    router.get('/set/user',async (ctx)=>{
-        ctx.session.user = {
-                    username:"KOL",
-                    age:15
-                }
-                ctx.body = "set session success"
-    })
-    router.get('/delete/user',async (ctx)=>{
-        ctx.session = null
-        ctx.body = "set session success"
+    router.get('/api/user/info',async (ctx)=>{
+        const user = ctx.session.userInfo
+        if(!user){
+            ctx.status = 401
+            ctx.body = "Need Login"
+        }else{
+            ctx.body = user
+            ctx.set("Content-Type","application/json")
+
+        }
+
     })
     server.use(router.routes())
     server.use(async (ctx,next)=>{
